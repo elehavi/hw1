@@ -2,7 +2,7 @@ Homework 1 - Intro to Chisel and Scala
 =======================
 
 ## Problem 1 - Bit Extraction & Manipulation (10pts)
-Fill in the module `RiscvITypeDecoder` to practice bit extraction. Given a 32-bit instruction word (`instWord`) as input, it extracts the fields of a RISC-V I-type instruction ([ISA summary](http://riscvbook.com/greencard-20181213.pdf])). Here are the fields and their bit positions:
+Fill in the module `RiscvITypeDecoder` to practice bit extraction. Given a 32-bit instruction word (`instWord`) as input, it extracts the fields of a RISC-V I-type instruction ([ISA summary](http://www.riscbook.com/greencard-20181213.pdf])). Here are the fields and their bit positions:
 
 | Field | Positions (inclusive) |
 | --- | --- |
@@ -30,14 +30,14 @@ To practice using Chisel's bit-wise operators, fill in the module `CombLogic` to
 
 
 ## Problem 2 - Write a Chisel Test (20pts)
-We can use Scala to write exhaustive tests for a module assuming its input space is relatively small. In this problem, we provide the implementation of `MajorityCircuit` in the file `src/main/scala/hw1/HW1.scala`. Your job is to edit the file `src/test/scala/hw1/MajorityCircuitTester.scala` to fill in the unimplemented test for MajorityCircuit using Chiseltest's `peek`, `poke`, and `expect`. Make sure to test that the output is correct for all 8 possible input values. You may run your test using the command `sbt test` from your terminal. _**We strongly encourage you to fill in your own tests for the other problems using `src/test/scala/hw1/HW1Tester.scala` but they will not be graded.**_
+We can use Scala to write exhaustive tests for a module assuming its input space is relatively small. In this problem, we provide the implementation of `MajorityCircuit` in the file `src/main/scala/hw1/HW1.scala`. Your job is to edit the file `src/test/scala/hw1/MajorityCircuitTester.scala` to fill in the unimplemented test for MajorityCircuit using Chiseltest's `peek`, `poke`, and `expect`. Make sure to test that the output is correct for all 8 possible input values. You may run your test using the command `sbt test` from your terminal. _**We strongly encourage you to fill in your own tests for the other problems using `src/test/scala/hw1/HW1Tester.scala`, but they will not be graded.**_
 
 <!-- ## Problem 2 - Write a Chisel Test (10pts)
 We can use Scala to write exhaustive tests for a module assuming its input space is relatively small. In this problem, we provide the implementation of  in the file `src/main/scala/hw1/HW1.scala`. Your job is to edit the file `src/test/scala/hw1/Problem2Tester.scala` to fill in the unimplemented test for Problem2 using Chisel's `peek`, `poke`, and `expect`. Make sure to test that the output is correct for all 8 possible input values. You may run your test using the command `sbt test` from your terminal. _**We strongly encourage you to fill in your own tests for the other problems located in `src/test/scala/hw1/HW1Tester.scala` but they will not be graded.**_ -->
 
 
 ## Problem 3 - Polynomial Evaluator (20pts)
-The `PolyEval` module will be given 3 input coefficients (`c0`, `c1`, and `c2`) at generation time and produce a circuit that computes the polynomial using them and a hardware input `x`. The circuit will also take an input `enable` that if true, the output will be the polynomial result, and if false, it will be 0. Fill in the rest of `PolyEval`.
+The `PolyEval` module takes 3 input coefficients (`c0`, `c1`, and `c2`) at generation time and produces a circuit that computes the polynomial using them and a hardware input `x`. The circuit will also take an input `enable` that if true, the output will be the polynomial result, and if false, it will be 0. Fill in the rest of `PolyEval`.
 
 #### Parameters (Scala)
 - c0: _positive Int (8b)_
