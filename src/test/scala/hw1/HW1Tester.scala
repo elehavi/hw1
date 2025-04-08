@@ -16,9 +16,18 @@ class HW1Tester extends AnyFlatSpec with ChiselScalatestTester {
 
   behavior of "PolyEval"
   it should "correctly calculate out" in {
-		val c0 = ???
+		val c0 = 1
     test(new PolyEval(c0, c0, c0)) { dut =>
-			???
+			dut.io.x.poke(1.U)
+      dut.io.enable.poke(true.B)
+      dut.io.out.expect(3)
+
+      dut.io.x.poke(2.U)
+      dut.io.enable.poke(true.B)
+      dut.io.out.expect(7)
+
+      dut.io.enable.poke(false.B)
+      dut.io.out.expect(0)
     }
   }
 

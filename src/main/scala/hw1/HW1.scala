@@ -53,7 +53,16 @@ class PolyEval(c0: Int, c1: Int, c2: Int) extends Module {
   require(c0 >= 0 && c0 < 256)
   require(c1 >= 0 && c1 < 256)
   require(c2 >= 0 && c2 < 256)
-	val io = ???
+	val io = IO(new Bundle {
+    val enable = Input(Bool())
+    val x = Input(UInt(8.W))
+    val out = Output(UInt())
+  })
+  when (io.enable) {
+    io.out := c0.U + c1.U*io.x + c2.U*io.x*io.x
+  } .otherwise {
+    io.out := 0.U
+  }
 }
 
 
