@@ -14,7 +14,21 @@ import chisel3.util._
  * io.immSignExtended: 32b UInt Output
  */
 class RiscvITypeDecoder extends Module {
-	val io = ???
+	val io =  IO(new Bundle {
+    val instWord = Input(UInt(32.W))
+    val opcode = Output(UInt(7.W))
+    val funct3 = Output(UInt(3.W))
+    val rs1 = Output(UInt(5.W))
+    val rd = Output(UInt(5.W))
+    val immSignExtended = Output(UInt(32.W))
+  })
+  
+  io.opcode := io.instWord(6,0)
+  io.funct3 := io.instWord(14,12)
+  io.rs1 := io.instWord(19,15)
+  io.rd := io.instWord(11,7)
+  io.immSignExtended := io.instWord(31,20)
+  
 }
 
 
