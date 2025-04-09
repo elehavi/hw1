@@ -86,5 +86,19 @@ class ComplexALU(onlyAdder: Boolean) extends Module {
     val realOut = Output(SInt())
     val imagOut = Output(SInt())
   })
-	???
+  if (onlyAdder) {
+    // dont generate subtraction hardware
+    io.realOut := io.real1 + io.real0
+    io.imagOut := io.imag1 + io.imag0
+  } else {
+    when (io.doAdd) {
+      // add
+      io.realOut := io.real1 + io.real0
+      io.imagOut := io.imag1 + io.imag0
+    } .otherwise {
+      // subtract
+      io.realOut := io.real0 - io.real1
+      io.imagOut := io.imag0 - io.imag1
+    }
+  }
 }
