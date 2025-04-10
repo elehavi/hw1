@@ -27,7 +27,9 @@ class RiscvITypeDecoder extends Module {
   io.funct3 := io.instWord(14,12)
   io.rs1 := io.instWord(19,15)
   io.rd := io.instWord(11,7)
-  io.immSignExtended := io.instWord(31,20)
+  val signBit = io.instWord(31)
+  val extension = Fill(20, signBit)
+  io.immSignExtended := Cat(extension,io.instWord(31,20)) 
   
 }
 
@@ -83,22 +85,24 @@ class ComplexALU(onlyAdder: Boolean) extends Module {
     val imag0 = Input(SInt(7.W))
     val real1 = Input(SInt(7.W))
     val imag1 = Input(SInt(7.W))
-    val realOut = Output(SInt())
-    val imagOut = Output(SInt())
+    val realOut = Output(SInt(8.W))
+    val imagOut = Output(SInt(8.W))
   })
   if (onlyAdder) {
     // dont generate subtraction hardware
-    io.realOut := io.real1 + io.real0
-    io.imagOut := io.imag1 + io.imag0
+    io.realOut := io.real1 +& io.real0
+    io.imagOut := io.imag1 +& io.imag0
+    printf("real sum is %d, imaginary sum is %d", io.real0 + io.real1, io.imag0 + io.imag1)
   } else {
     when (io.doAdd) {
       // add
-      io.realOut := io.real1 + io.real0
-      io.imagOut := io.imag1 + io.imag0
+      io.realOut := io.real1 +& io.real0
+      io.imagOut := io.imag1 +& io.imag0
     } .otherwise {
       // subtract
-      io.realOut := io.real0 - io.real1
-      io.imagOut := io.imag0 - io.imag1
+      io.realOut := io.real0 -& io.real1
+      io.imagOut := io.imag0 -& io.imag1
+      // NOTE: use & after arithmetic operator so it doesnt truncate
     }
   }
 }
